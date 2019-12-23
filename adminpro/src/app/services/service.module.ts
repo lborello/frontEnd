@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import {
   SettingsService,
   SidebarService,
   SharedService
-} from './service.index';
-
+ } from './service.index';
 
 
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule
   ],
@@ -17,6 +16,7 @@ import {
     SettingsService,
     SidebarService,
     SharedService
-  ]
+  ],
+  declarations: []
 })
-export class ServicesModule { }
+export class ServiceModule { }

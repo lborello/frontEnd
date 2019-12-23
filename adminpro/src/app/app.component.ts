@@ -1,4 +1,5 @@
-import { Component , OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
 import { SettingsService } from './services/service.index';
 
 @Component({
@@ -7,11 +8,7 @@ import { SettingsService } from './services/service.index';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
-  constructor( public _AJUSTES: SettingsService) { }
 
-  ngOnInit () {
-    console.log('app.component INIT');
-  }
+  constructor( public _ajustes: SettingsService ) {}
 
 }

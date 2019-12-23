@@ -7,12 +7,12 @@ import { Component, Input, Output, ViewChild, OnInit, EventEmitter, ElementRef }
 })
 export class IncrementadorComponent implements OnInit {
 
-  @ViewChild('txtProgress', { static: false }) txtProgress: ElementRef;
-  // @ViewChild(Pane, {static: false})
-  // @ViewChild()
+  @ViewChild('txtProgress' ,  {static: false} ) txtProgress: ElementRef;
+
   // tslint:disable-next-line: no-input-rename
   @Input('nombre') leyenda: string = 'Leyenda';
   @Input() progreso: number = 50;
+
   // tslint:disable-next-line: no-output-rename
   @Output('actualizaValor') cambioValor: EventEmitter<number> = new EventEmitter();
 
@@ -34,9 +34,9 @@ export class IncrementadorComponent implements OnInit {
 
     if ( newValue >= 100 ) {
       this.progreso = 100;
-    } else if ( newValue <= 0 ) {
+    }else if ( newValue <= 0 ) {
       this.progreso = 0;
-    } else {
+    }else {
       this.progreso = newValue;
     }
 
