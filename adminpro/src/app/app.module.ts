@@ -7,11 +7,13 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 // Rutas
 import { APP_ROUTES } from './app.routes';
+// Servicios
+import { SettingsService } from './services/settings.service';
 // Modulos
 import { PagesModule } from './pages/pages.module';
 // ChartsModule
 import { ChartsModule } from 'ng2-charts';
-import { GraficoDonaComponent } from './components/grafico-dona/grafico-dona.component';
+
 
 
 
@@ -32,7 +34,7 @@ import { GraficoDonaComponent } from './components/grafico-dona/grafico-dona.com
     FormsModule,
     ChartsModule
     ],
-  providers: [],
+  providers: [SettingsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

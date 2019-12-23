@@ -16,6 +16,7 @@ import { PAGES_ROUTES } from './pages.routes';
 
 // Charts
 import { ChartsModule } from 'ng2-charts';
+import { AccoutSettingsComponent } from './accout-settings/accout-settings.component';
 
 
 
@@ -28,7 +29,8 @@ import { ChartsModule } from 'ng2-charts';
         Graficas1Component,
         PagesComponent,
         IncrementadorComponent,
-        GraficoDonaComponent
+        GraficoDonaComponent,
+        AccoutSettingsComponent
     ],
     exports: [
         DashboardComponent,
