@@ -5,3 +5,13 @@
 .pointer {
     cursor: pointer;
 }
+
+.w150 {
+    width: 150px;
+    padding: 7px;
+    border-radius: 50%;
+}
+
+.margin5 {
+    margin: 5px;
+}

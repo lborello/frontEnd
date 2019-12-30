@@ -5,11 +5,14 @@ import { LoginGuardGuard } from './guards/login-guard.guard';
 
 
 
+
+
 import {
   SettingsService,
   SidebarService,
   SharedService,
-  UsuarioService
+  UsuarioService,
+  SubirArchivoService
  } from './service.index';
 
 
@@ -23,10 +26,10 @@ import {
     SidebarService,
     SharedService,
     UsuarioService,
-    LoginGuardGuard
+    LoginGuardGuard,
+    SubirArchivoService
   ],
   declarations: [
-   
-  ]
+   ]
 })
 export class ServiceModule { }
