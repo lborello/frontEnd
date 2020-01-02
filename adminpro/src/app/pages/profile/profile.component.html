@@ -38,7 +38,7 @@
             <div class="card-body" style="text-align: center;">
                 <h4 class="card-title">Fotografia del usuario</h4>
                 <h6 class="card-subtitle">Nombre usuraio {{usuario.nombre}} </h6>
-                <img *ngIf="!imagenTemp ===false" class="w150" [src]="imagenTemp">
+                <img *ngIf="imagenTemp" class="w150" [src]="imagenTemp">
                 <img *ngIf="!imagenTemp" class="w150" [src]="usuario.img | imagen ">
                 <input style="margin-bottom: 10px;" (change)="seleccionImagen($event.target.files[0])" type="file">
                 <button (click)="cambiarImagen()" type="button" [disabled]="!imagenSubir" class="btn btn-block btn-success waves-effect waves-light m-r-10">

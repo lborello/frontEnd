@@ -26,9 +26,9 @@ export class UsuarioService {
   token: string;
 
   constructor(public http: HttpClient,
-              public router: Router,
+    public router: Router,
     // tslint:disable-next-line: variable-name
-              public _subirArchivoService: SubirArchivoService) {
+    public _subirArchivoService: SubirArchivoService) {
     // console.log('Servicio de usuario listo :)');
     this.cargarStorage();
   }
@@ -103,19 +103,41 @@ export class UsuarioService {
       }));
   }
 
+  // actualizarUsuario(usuario: Usuario) {
+  //   let url = URL_SERVICIOS + '/usuario/' + usuario._id;
+  //   url += '?token=' + this.token;
+  //   return this.http.put(url, usuario)
+  //     // tslint:disable-next-line: arrow-return-shorthand
+  //     .pipe(map((resp: any) => {
+  //       // console.log(resp);
+  //       const usuarioDB: Usuario = resp.usuario;
+  //       this.guardarStorage(usuarioDB._id, this.token, usuarioDB);
+  //       swal('Usuario Actualizado', resp.usuario.email, 'success');
+  //       return true;
+  //     }));
+  // }
+
+
   actualizarUsuario(usuario: Usuario) {
+
     let url = URL_SERVICIOS + '/usuario/' + usuario._id;
     url += '?token=' + this.token;
-    return this.http.put(url, usuario)
-      // tslint:disable-next-line: arrow-return-shorthand
-      .pipe(map((resp: any) => {
-        // console.log(resp);
+
+    return this.http.put(url, usuario).pipe(
+                map((resp: any) => {
+
+      if (usuario._id === this.usuario._id) {
         const usuarioDB: Usuario = resp.usuario;
         this.guardarStorage(usuarioDB._id, this.token, usuarioDB);
-        swal('Usuario Actualizado', resp.usuario.email, 'success');
-        return true;
-      }));
+      }
+
+      swal('Usuario actualizado', usuario.nombre, 'success');
+
+      return true;
+    }));
+
   }
+
 
   cambiarImagen(archivo: File, id: string) {
 
@@ -130,5 +152,33 @@ export class UsuarioService {
       });
 
   }
+  cargarUsuarios(desde: number = 0) {
+    const url = URL_SERVICIOS + '/usuario?desde=' + desde;
+    // url += '?token=' + this.token;
+    // return this.http.get(url, usuario);
+    return this.http.get(url);
+    // // tslint:disable-next-line: arrow-return-shorthand
+    // .pipe(map((resp: any) => {
+    //   // console.log(resp);
+    //   const usuarioDB: Usuario = resp.usuario;
+    //   this.guardarStorage(usuarioDB._id, this.token, usuarioDB);
+    //   swal('Usuario Actualizado', resp.usuario.email, 'success');
+    //   return true;
+    // }));
+  }
 
+  buscarUsuarios(termino: string) {
+    const url = URL_SERVICIOS + '/busqueda/coleccion/usuarios/' + termino;
+    return this.http.get(url);
+  }
+
+  borrarUsuario(id: string) {
+    let url = URL_SERVICIOS + '/usuario/' + id;
+    url += '?token=' + this.token;
+    return this.http.delete(url)
+      .pipe(map((resp: any) => {
+        swal('Usuario borrado', 'El usuraio fue borrado ', 'success');
+        return true;
+      }));
+  }
 }
