@@ -9,12 +9,15 @@ import { ModalUploadService } from '../components/modal-upload/modal-upload.serv
 
 
 
+
 import {
   SettingsService,
   SidebarService,
   SharedService,
   UsuarioService,
   SubirArchivoService,
+  HospitalService,
+  MedicoService
 
  } from './service.index';
 
@@ -29,7 +32,11 @@ import {
     SettingsService,
     SidebarService,
     SharedService,
+    // Servicio de paginas de mantenimiento
     UsuarioService,
+    HospitalService,
+    MedicoService,
+    // Fin de servicios de paginas de mantenimiento
     LoginGuardGuard,
     SubirArchivoService,
     ModalUploadService

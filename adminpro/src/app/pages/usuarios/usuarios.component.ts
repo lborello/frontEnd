@@ -17,7 +17,7 @@ export class UsuariosComponent implements OnInit {
   usuarios: Usuario[] = [];
   desde: number = 0;
   totalRegistros: number = 0;
-  cargando: boolean = true;
+  cargando: boolean = false;
 
   // CommonJS
   // Swal = require('sweetalert2');
