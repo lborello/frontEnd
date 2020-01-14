@@ -1,14 +1,15 @@
 import { RouterModule, Routes } from '@angular/router';
 
-import { PagesComponent } from './pages.component';
+
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
 import { Graficas1Component } from './graficas1/graficas1.component';
+
 import { AccoutSettingsComponent } from './accout-settings/accout-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 // Guards
-import { AdminGuard, LoginGuardGuard , VerificaTokenGuard } from '../services/service.index';
+import { AdminGuard,   VerificaTokenGuard } from '../services/service.index';
 
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
@@ -16,6 +17,7 @@ import { HospitalesComponent } from './hospitales/hospitales.component';
 import { MedicosComponent } from './medicos/medicos.component';
 import { MedicoComponent } from './medicos/medico.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
+import { DataTableComponent } from '../components/data-table/data-table.component';
 
 const pagesRoutes: Routes = [
     {

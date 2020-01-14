@@ -11,6 +11,7 @@ import {
   SidebarService,
   SharedService,
   UsuarioService,
+  ExcelService ,
   LoginGuardGuard,
   AdminGuard,
   VerificaTokenGuard,
@@ -34,6 +35,7 @@ import {
     UsuarioService,
     HospitalService,
     MedicoService,
+    ExcelService,
     // Fin de servicios de paginas de mantenimiento
   //  Guards
     LoginGuardGuard,

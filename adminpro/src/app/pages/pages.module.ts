@@ -23,6 +23,7 @@ import { HospitalesComponent } from './hospitales/hospitales.component';
 import { MedicosComponent } from './medicos/medicos.component';
 import { MedicoComponent } from './medicos/medico.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
+import { DataTableComponent } from '../components/data-table/data-table.component';
 
 
 @NgModule({
@@ -32,7 +33,10 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
         ProgressComponent,
         Graficas1Component,
         IncrementadorComponent,
+        //  Controles 
         GraficoDonaComponent,
+        DataTableComponent,
+        // Fin COntroles
         AccoutSettingsComponent,
         PromesasComponent,
         RxjsComponent,

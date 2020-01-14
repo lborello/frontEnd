@@ -14,6 +14,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 import { PagesComponent } from './pages/pages.component';
 import { SharedModule } from './shared/shared.module';
+import { DatePipe } from '@angular/common';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +31,9 @@ import { SharedModule } from './shared/shared.module';
     ServiceModule,
     SharedModule
   ],
-  providers: [],
+  providers: [
+    DatePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
