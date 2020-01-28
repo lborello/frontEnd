@@ -18,7 +18,24 @@ export class Graficas1Component implements OnInit {
     eid: 'e103',
     ename: 'rajesh',
     esal: 3000
-  }];
+  }, {
+    eid: 'e103',
+    ename: 'rajesh',
+    esal: 3000
+  }, {
+    eid: 'e103',
+    ename: 'rajesh',
+    esal: 3000
+  }, {
+    eid: 'e103',
+    ename: 'rajesh',
+    esal: 3000
+  }, {
+    eid: 'e103',
+    ename: 'rajesh',
+    esal: 3000
+  }
+];
   graficos: any = {
     grafico1: {
       labels: ['Con Frijoles', 'Con Natilla', 'Con tocino'],

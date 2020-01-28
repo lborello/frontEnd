@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {ExcelService} from '../../services/service.index';
+import {ExcelService2} from '../../services/excel/excel2.service';
 import * as jsPDF from 'jspdf';
 // import jsPDF from 'jspdf';
 import 'jspdf-autotable';
@@ -17,16 +18,24 @@ export class DataTableComponent implements OnInit {
     }, {
     eid: 'e102',
     ename: 'ram',
-    esal: 1000
+    esal: 2000
     }, {
     eid: 'e103',
     ename: 'rajesh',
-    esal: 1000
-    }];
+    esal: 3000
+    }, {
+      eid: 'e103',
+      ename: 'rajesh',
+      esal: 3000
+      }
+  
+  ];
 
 @Input ()  data: any = [] ;
   date: any;
-constructor(private excelService: ExcelService ) {}
+constructor(
+  private excelService: ExcelService, 
+  private excelService2: ExcelService2 ) {}
 ngOnInit() {}
   // print = () => {
   //   let doc = new jsPDF();
@@ -40,7 +49,8 @@ ngOnInit() {}
 
   exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.data, 'sample error'   );
- }
+   
+  }
   exportAsPDF() {
   const doc = new jsPDF();
   doc.setFontSize(22);
@@ -93,5 +103,45 @@ ngOnInit() {}
   console.log('archivo');
 
  }
-
+ generateExcel() {
+  // https://stackoverflow.com/questions/9581623/json-array-convert-to-javascript-array
+  // const obj = JSON.parse({'2017', '1', 'Volkswagen ', 'Volkswagen Passat', '1267', '10'});
+  // const data = JSON.parse({'AÑO':2017, '1', 'Volkswagen ', 'Volkswagen Passat', '1267', '10'});
+  //     [2017, 1, 'Volkswagen ', 'Volkswagen Passat', 1267, 10],
+  //     [2007, 1, 'Toyota ', 'Toyota Rav4', 819, 6.5]] ;
+  const data = [
+    [2017, 1, 'Volkswagen ', 'Volkswagen Passat', 1267, 10],
+    [2007, 1, 'Toyota ', 'Toyota Rav4', 819, 6.5],
+    [2007, 1, 'Toyota ', 'Toyota Avensis', 787, 6.2],
+    [2007, 1, 'Volkswagen ', 'Volkswagen Golf', 720, 5.7],
+    [2007, 1, 'Toyota ', 'Toyota Corolla', 691, 5.4],
+    [2007, 1, 'Peugeot ', 'Peugeot 307', 481, 3.8],
+    [2008, 1, 'Toyota ', 'Toyota Prius', 217, 2.2],
+    [2008, 1, 'Skoda ', 'Skoda Octavia', 216, 2.2],
+    [2008, 1, 'Peugeot ', 'Peugeot 308', 135, 1.4],
+    [2008, 2, 'Ford ', 'Ford Mondeo', 624, 5.9],
+    [2008, 2, 'Volkswagen ', 'Volkswagen Passat', 551, 5.2],
+    [2008, 2, 'Volkswagen ', 'Volkswagen Golf', 488, 4.6],
+    [2008, 2, 'Volvosss ', 'Volvo V70', 392, 3.7],
+    [2008, 2, 'Toyota ', 'Toyota Auris', 342, 3.2],
+    [2008, 2, 'Volkswagen ', 'Volkswagen Tiguan', 340, 3.2],
+    [2008, 2, 'Toyota ', 'Toyota Avensis', 315, 3],
+    [2008, 2, 'Nissan ', 'Nissan Qashqai', 272, 2.6],
+    [2008, 2, 'Nissan ', 'Nissan X-Trail', 271, 2.6],
+    [2008, 2, 'Mitsubishi ', 'Mitsubishi Outlander', 257, 2.4],
+    [2008, 2, 'Toyota ', 'Toyota Rav4', 250, 2.4],
+    [2008, 2, 'Ford ', 'Ford Focus', 235, 2.2],
+    [2008, 2, 'Skoda ', 'Skoda Octavia', 225, 2.1],
+    [2008, 2, 'Toyota ', 'Toyota Yaris', 222, 2.1],
+    [2008, 2, 'Honda ', 'Honda CR-V', 219, 2.1],
+    [2008, 2, 'Audi ', 'Audi A4', 200, 1.9],
+    [2008, 2, 'BMW ', 'BMW 3-serie', 184, 1.7],
+    [2008, 2, 'Toyota ', 'Toyota Prius', 165, 1.6],
+    [2008, 2, 'Peugeot ', 'Peugeot 207', 144, 1.4]
+  ];
+  const col = ['Year', 'Month', 'Make', 'modelo', 'Quantity', 'Pct'];
+  // this.excelService2.generateExcel('Reporte de luis', col , data);
+  this.excelService2.generateExcel('Reporte de luis', this.data);
+  
+}
 }
