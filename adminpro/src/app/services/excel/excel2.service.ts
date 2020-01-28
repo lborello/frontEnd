@@ -1,10 +1,9 @@
-import { Injectable, ɵisDefaultChangeDetectionStrategy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 import * as logoFile from './carlogo.js';
 import { DatePipe } from '@angular/common';
-import * as XLSX from 'xlsx';
-const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,112 +11,93 @@ export class ExcelService2 {
   constructor(private datePipe: DatePipe) {
   }
   async generateExcel(titulo: string, jsonDatos: any[]) {
-
-    // const ExcelJS = await import('exceljs');
-    // console.log(ExcelJS);
-    // const Workbook: any = {};
-
-    // Excel Title, Header, Data
+    // Documentacion https://www.npmjs.com/package/exceljs
     const title = titulo;
     const data = jsonDatos;
-    const columnValor: string[] = [];
     // Create workbook and worksheet
     const workbook = new Workbook();
-    const worksheet = workbook.addWorksheet('Car Data');
-    // Add Row and formatting
-    const titleRow = worksheet.addRow([title]);
-    titleRow.font = {
-      name: 'Comic Sans MS',
-      family: 4,
-      size: 16,
-      underline: 'double',
-      bold: true
-    };
-    worksheet.addRow([]);
-    const subTitleRow = worksheet.addRow(['Date : ' + this.datePipe.transform(new Date(), 'medium')]);
-    
+    const worksheet = workbook.addWorksheet('Datos ' + this.datePipe.transform(new Date(), 'yyyy_MM_dd'));
     // Add Image
     const logo = workbook.addImage({
       base64: logoFile.logoBase64,
       extension: 'png',
     });
-    worksheet.addImage(logo, 'E1:F3');
-    worksheet.mergeCells('A1:D2');
+    // titulos
+    worksheet.addImage(logo, 'E1:F2');
+    worksheet.addRows(['']);
 
-    // Add image to a cell
-    // worksheet.addImage(logo, {
-    //   tl: { col: 3, row: 3 },
-    //   ext: { width: 500, height: 200 }
-    // });
-    // Imagen de  Fondo
-    // worksheet.addBackgroundImage(logo);
-
-
-  
-
-
-    worksheet.autoFilter = 'A6:C6';
-    // Blank Row
-    // worksheet.addRow([]);
-
-    // Add Header Row
-
-    // const headerRow = worksheet.addRow(header);
-    // const headerRow = worksheet.addRow(["e101","ravi","1000"]);
-    // // Cell Style : Fill and Border
-    // headerRow.eachCell((cell, number) => {
-    //   cell.fill = {
-    //     type: 'pattern',
-    //     pattern: 'solid',
-    //     fgColor: { argb: 'FFFFFF00' },
-    //     bgColor: { argb: 'FF0000FF' }
-    //   };
-    //   cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } };
-    // });
-
-    // worksheet.addRows(data);
-
-    //  console.log(data);
-
-    // data.forEach(([value, index, array]) => {
-    //   console.log(value);
-    //   console.log(index);
-    //   console.log(array);
-
-    // });
-    const vacio = [];
-    let headerRow;
-    let row;
-    let colorRow: boolean = false;
-    data.forEach((value, index, array) => {
-      const valor = [];
-      Object.entries(value).forEach(([key1, value1]) => { // Ller los datos Clave Valor
-        // console.log(`${key1} ${value1}`);
-        valor.push(value1);
-        // tslint:disable-next-line: triple-equals
-        if (index == 0) {
-          columnValor.push(key1.toUpperCase());
-          worksheet.getColumn(1).width = 10;
-          worksheet.getColumn(2).width = 20;
-          worksheet.getColumn(3).width = 60;
-        }
-      });
-      // console.log("columnValor " + columnValor);
+    const tituloExcel = [];
+    tituloExcel[2] = title;
+    const tituloExcelStyle = worksheet.addRow(tituloExcel);
+    tituloExcelStyle.font = {
+      name: 'Arial',
+      family: 4,
+      size: 16,
+      underline: 'double',
+      bold: true
+    };
+    worksheet.addRows(['']);
+    const subTituloExcel = [];
+    subTituloExcel[1] = 'Fecha:' + this.datePipe.transform(new Date(), 'dd/MM/yyy');
+    subTituloExcel[3] = 'Hora:' + this.datePipe.transform(new Date(), 'HH:mm');
+    const subTituloExcelStyle = worksheet.addRow(subTituloExcel);
+    subTituloExcelStyle.font = {
+      name: 'Arial',
+      family: 4,
+      size: 12,
+      // underline: 'double',
+      bold: true
+    };
+    worksheet.addRows(['']);
+    // Creacion de las columnas ;
+    const colData = [];
+    const colDataBind = [];
+    data.forEach((value, index) => {
       if (index == 0) {
-        headerRow = worksheet.addRow(columnValor);
+        Object.entries(value).forEach((key, index1) => { // Ller los datos Clave Valor
+          colData[index1] = key[0].toUpperCase();
+          colDataBind[index1] = { header: '', key: key[0], width: 10 };
+        });
       }
-      row = worksheet.addRow(valor);
-      // console.log('valor ' + valor);
-
-      // Color y estilo de los rows  colorRow
-      let rowfgColor = 'FFFFFF00';
+    });
+    // Style Column
+    const tituloColumn = worksheet.addRow(colData);
+    tituloColumn.eachCell((cell) => {
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'CAE3E8' },
+        bgColor: { argb: 'BFF4FF' }
+      };
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      cell.font = {
+        name: 'Arial Black',
+        color: { argb: '024A5C' },
+        family: 2,
+        size: 10,
+        italic: true
+      };
+      cell.alignment = { vertical: 'middle', horizontal: 'center' };
+    });
+    worksheet.columns = colDataBind;
+    // Auto Filter
+    let colorRow: boolean = false;
+    let rowfgColor;
+    data.forEach((value) => {
+      const rowDatos = worksheet.addRow(value);
       if (colorRow) {
         colorRow = false;
-        rowfgColor = 'CAE8CF';
+        rowfgColor = 'A1FFE3';
       } else {
         colorRow = true;
+        rowfgColor = '8EE0C8';
       }
-      row.eachCell((cell, number) => {
+      rowDatos.eachCell((cell) => {
         cell.fill = {
           type: 'pattern',
           pattern: 'solid',
@@ -143,99 +123,26 @@ export class ExcelService2 {
           bottom: { style: 'thin' },
           right: { style: 'thin' }
         };
+        cell.alignment = {
+          vertical: 'middle',
+          horizontal: 'left'
+        };
       });
-
-
-      vacio.push(valor);
-    });
-    // console.log("avacio " + vacio);
-    // Blank Row
-    worksheet.addRow([]);
-    // Add Header Row
-
-    //  const headerRow = worksheet.addRow(header);
-    // const headerRow = worksheet.addRow(columnValor);
-
-
-
-    // Cell Style : Fill and Border
-    headerRow.eachCell((cell, number) => {
-      cell.fill = {
-        type: 'pattern',
-        pattern: 'solid',
-        //   fgColor: { argb: 'FFFFFF00' },
-        fgColor: { argb: 'CDFA66' }, // amarillo
-        bgColor: { argb: '301C0F' }
-      };
-      cell.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' }
-      };
-      cell.font = {
-        name: 'Arial Black',
-        color: { argb: '301C0F' },
-        family: 2,
-        size: 14,
-        italic: true
-      };
-    });
-
-
-    // data.forEach(obj => {
-    //   const valor =[];
-    //   const rowValor = [];
-    //   Object.entries(obj).forEach(([key, value, index]) => {
-    //     console.log(`${key} ${value}`);
-    //     valor.push(value);
-    //     columnValor.push(key);
-    //   });
-    //   console.log(rowValor);
-    //   rowValor.push(valor);
-    //   //console.log(rowValor);
-    //   console.log('columnValor' + columnValor);
-    //   // const row = worksheet.addRow(valor);
-    //   console.log('-------------------');
-    // });
-
-
-
-    // Add Data and Conditional Formatting
-    // data.forEach(d => {
-    // const row = worksheet.addRow(d);
-
-
-    row = worksheet.addRow(['titulo', '2']);
-    const qty = row.getCell(1);
-    let color = 'FF99FF99';
-    console.log(qty.value);
-    if (qty.value < 500) {
-      color = 'FF9999';
-    } else {
-      color = 'FF9999';
-    }
-
-    qty.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: color }
-    };
-    // }
-
-    // );
-
-    worksheet.getColumn(3).width = 30;
-    worksheet.getColumn(4).width = 30;
-    worksheet.addRow([]);
-    // 
+      });
     // link to web
-    worksheet.getCell('A8').value = {
-      text: 'www.basaargentina.com',
-      hyperlink: 'http://www.basaargentina.com.ar'
-    };
+    // worksheet.getCell('B2').value = {
+    //   text: 'www.basaargentina.com',
+    //   hyperlink: 'http://www.basaargentina.com.ar'
+    // };
+    // worksheet.getCell('A1').fill = {
+    //   type: 'pattern',
+    //   pattern: 'solid',
+    //   fgColor: { argb: '5D678F' },
+    //   bgColor: { argb: 'FF0000FF' }
+    // };
+    worksheet.addRow(['']);
     // Footer Row
-    const footerRow = worksheet.addRow(['This is system generated excel sheet.']);
+    const footerRow = worksheet.addRow(['Informe Generado: ' +  this.datePipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss')  ]);
     footerRow.getCell(1).fill = {
       type: 'pattern',
       pattern: 'solid',
