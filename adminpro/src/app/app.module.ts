@@ -15,13 +15,15 @@ import { RegisterComponent } from './login/register.component';
 import { PagesComponent } from './pages/pages.component';
 import { SharedModule } from './shared/shared.module';
 import { DatePipe } from '@angular/common';
+import { DataTableEditComponent } from './components/data-table-edit/data-table-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    PagesComponent
+    PagesComponent,
+    DataTableEditComponent
   ],
   imports: [
     BrowserModule,

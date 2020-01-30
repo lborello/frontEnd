@@ -6,37 +6,69 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class Graficas1Component implements OnInit {
-  data: any = [{
-    eid: 'e101',
-    ename: 'ravi',
-    esal: 1000
-  }, {
-    eid: 'e102',
-    ename: 'ram',
-    esal: 2000
-  }, {
-    eid: 'e103',
-    ename: 'rajesh',
-    esal: 3000
-  }, {
-    eid: 'e103',
-    ename: 'rajesh',
-    esal: 3000
-  }, {
-    eid: 'e103',
-    ename: 'rajesh',
-    esal: 3000
-  }, {
-    eid: 'e103',
-    ename: 'rajesh',
-    esal: 3000
-  }, {
-    eid: 'e103',
-    ename: 'rajesh',
-    esal: 3000
-  }
-];
-  graficos: any = {
+//   data: any = [{
+//     eid: 'e101',
+//     ename: 'ravi',
+//     esal: 1000,
+//     titulo: 'luisis titulo'
+//   }, {
+//     eid: 'e102',
+//     ename: 'ram',
+//     esal: 2000
+//   }, {
+//     eid: 'e103',
+//     ename: 'rajesh',
+//     esal: 3000
+//   }, {
+//     eid: 'e103',
+//     ename: 'rajesh',
+//     esal: 3000
+//   }, {
+//     eid: 'e103',
+//     ename: 'rajesh',
+//     esal: 3000
+//   }, {
+//     eid: 'e103',
+//     ename: 'rajesh',
+//     esal: 3000
+//   }, {
+//     eid: 'e103',
+//     ename: 'rajesh',
+//     esal: 3000
+//   }
+// ];
+
+data: any = [  {
+  "uuid": "2acf1f30-3e0f-11ea-b74c-1f103bbeba07",
+  "nombre": "actualizado luis",
+  "url": null,
+  "apellido": "Apellidoluis@hotmail.com",
+  "username": null,
+  "createdAt": null,
+  "updatedAt": null,
+  "myDate": "2020-01-23T18:35:45.187Z"
+},
+{
+  "uuid": "3ad0dea0-3e0f-11ea-b74c-1f103bbeba07",
+  "nombre": "luis@hotmail.com",
+  "url": null,
+  "apellido": "Apellidoluis@hotmail.com",
+  "username": null,
+  "createdAt": null,
+  "updatedAt": null,
+  "myDate": "2020-01-23T18:36:12.042Z"
+},
+{
+  "uuid": "4ad55c30-3e1a-11ea-a2a7-fd26bc8d518d",
+  "nombre": "hola@hotmail.com",
+  "url": null,
+  "apellido": "Apellidoluis@hotmail.com",
+  "username": "holasisi",
+  "createdAt": null,
+  "updatedAt": null,
+  "myDate": "2020-02-23T18:35:10.611Z"
+}];
+graficos: any = {
     grafico1: {
       labels: ['Con Frijoles', 'Con Natilla', 'Con tocino'],
       data: [24, 30, 46],

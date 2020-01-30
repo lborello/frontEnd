@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import {ExcelService} from '../../services/service.index';
-import {ExcelService2} from '../../services/excel/excel2.service';
+import { Component, OnInit, Input, ElementRef, ViewChild,Renderer2 } from '@angular/core';
+import { ExcelService } from '../../services/service.index';
+import { ExcelService2 } from '../../services/excel/excel2.service';
 import * as jsPDF from 'jspdf';
 // import jsPDF from 'jspdf';
 import 'jspdf-autotable';
@@ -10,138 +10,98 @@ import 'jspdf-autotable';
   styles: []
 })
 export class DataTableComponent implements OnInit {
+  @Input() getLiveData: any = [];
+  @Input() data: any = [];
+  @ViewChild('abcd', {static: false}) abcd: ElementRef;
+  @ViewChild('divinput', {static: false}) divinput: ElementRef;
+  @ViewChild('colum0', {static: false}) colum0: ElementRef;
+  @ViewChild('colum1', {static: false}) colum1: ElementRef;
+  @ViewChild('datos10', {static: false}) datos10: ElementRef;
 
- @Input ()  getLiveData: any = [{
-    eid: 'e101',
-    ename: 'ravi',
-    esal: 1
-    }, {
-    eid: 'e102',
-    ename: 'ram',
-    esal: 2000
-    }, {
-    eid: 'e103',
-    ename: 'rajesh',
-    esal: 3000
-    }, {
-      eid: 'e103',
-      ename: 'rajesh',
-      esal: 3000
-      }
-  
-  ];
-
-@Input ()  data: any = [] ;
   date: any;
-constructor(
-  private excelService: ExcelService, 
-  private excelService2: ExcelService2 ) {}
-ngOnInit() {}
-  // print = () => {
-  //   let doc = new jsPDF();
-  //   doc.autoTable({
-  //     head: [['Log','', 'Amount']],
-  //     body: this.getLiveData()
-  //     //returning [["log1", "$100"], ["log2", "$200"]]
-  //   });
-  //   doc.save('table.pdf');
-  // }
+  colun = [];
+  columCount = 0;
+  datosLuis = 'ddd';
+  constructor(
+    private excelService: ExcelService,
+    private excelService2: ExcelService2 ,
+    private renderer: Renderer2 ) { }
+  ngOnInit() {
+    this.data.forEach((currentValue, index, arr) => {
+      if (index == 0) {
+        Object.entries(currentValue).forEach(([key]) => {
+          this.colun.push(key);
+          this.columCount = this.columCount + 1;
+        });
+      }
+      console.log ( this.columCount);
+    });
+  }
 
+  addfield()  {
+    const p: HTMLParagraphElement = this.renderer.createElement('input');
+    p.innerHTML = "add new"
+    p.setAttribute( 'value', '1');
+    p.setAttribute ('type' , 'number');
+    
+  // p.setAttribute ('[(ngModel)]', '"datosLuis"');
+    this.renderer.appendChild(this.divinput.nativeElement, p);
+// console.log(this.divinput.nativeElement.children[1]);
+// console.log(this.divinput.nativeElement.children[0]);
+// console.log(this.divinput.nativeElement.children);
+this.renderer.setStyle
+
+this.renderer.setStyle(this.colum1.nativeElement, 'width', '200px');
+this.renderer.setStyle(this.colum1.nativeElement, 'border', '2px solid red');
+ 
+console.log(this.datos10);
+
+     //this is for append a child element 
+     }
+  crearElemento(){
+    const li = this.renderer.createElement('li');
+    const text = this.renderer.createText('Click here to add li');
+    this.renderer.appendChild(li, text);
+    this.renderer.appendChild(this.abcd.nativeElement, li);
+    
+    const input1 = this.renderer.createElement('div');
+    const text1 = this.renderer.createText('Click here to add li');
+    this.renderer.appendChild(input1, text1);
+    this.renderer.appendChild(this.divinput.nativeElement, input1);
+
+    const textboxes = document.querySelector('#textboxes'); //to get element
+    this.renderer.addClass(textboxes , "col-md-6"); //this is for add class 
+    let divel= this.renderer.createElement('div'); //this is for create an element 
+    this.renderer.appendChild(textboxes, divel); 
+
+    
+  }
+  evento(evento, item) {
+    console.log(this.data);
+  }
   exportAsXLSX(): void {
-    this.excelService.exportAsExcelFile(this.data, 'sample error'   );
-   
+    this.excelService.exportAsExcelFile(this.data, 'sample error');
   }
   exportAsPDF() {
-  const doc = new jsPDF();
-  doc.setFontSize(22);
-  doc.rect(20, 20, 10, 10); // empty square
-  doc.text(20, 20, 'This is a title');
-
-  doc.line(20, 20, 60, 20); // horizontal line
-
-  doc.setLineWidth(0.5);
-  doc.line(20, 25, 60, 25);
-
-  doc.setLineWidth(1);
-  doc.line(20, 30, 60, 30);
-
-  doc.setLineWidth(1.5);
-  doc.line(20, 35, 60, 35);
-
-  doc.setDrawColor(255, 0, 0); // draw red lines
-
-  doc.setLineWidth(0.1);
-  doc.line(100, 20, 100, 60); // vertical line
-
-  doc.setLineWidth(0.5);
-  doc.line(105, 20, 105, 60);
-
-  doc.setLineWidth(1);
-  doc.line(110, 20, 110, 60);
-
-  doc.setLineWidth(1.5);
-  doc.line(115, 20, 115, 60);
-  doc.setFontSize(16);
-  doc.text(20, 30, 'This is some normal sized text underneath.');
-  doc.setTextColor(100);
-  doc.text(20, 20, 'This is gray.');
-
-  doc.setTextColor(150);
-  doc.text(20, 30, 'This is light gray.');
-
-  doc.setTextColor(255, 0, 0);
-  doc.text(20, 40, 'This is red.');
-
-  doc.setTextColor(0, 255, 0);
-  doc.text(20, 50, 'This is green.');
-
-  doc.setTextColor(0, 0, 255);
-  doc.text(20, 60, 'This is blue.');
-
-  doc.save('a4.pdf');
-
-  console.log('archivo');
-
- }
- generateExcel() {
-  // https://stackoverflow.com/questions/9581623/json-array-convert-to-javascript-array
-  // const obj = JSON.parse({'2017', '1', 'Volkswagen ', 'Volkswagen Passat', '1267', '10'});
-  // const data = JSON.parse({'AÑO':2017, '1', 'Volkswagen ', 'Volkswagen Passat', '1267', '10'});
-  //     [2017, 1, 'Volkswagen ', 'Volkswagen Passat', 1267, 10],
-  //     [2007, 1, 'Toyota ', 'Toyota Rav4', 819, 6.5]] ;
-  const data = [
-    [2017, 1, 'Volkswagen ', 'Volkswagen Passat', 1267, 10],
-    [2007, 1, 'Toyota ', 'Toyota Rav4', 819, 6.5],
-    [2007, 1, 'Toyota ', 'Toyota Avensis', 787, 6.2],
-    [2007, 1, 'Volkswagen ', 'Volkswagen Golf', 720, 5.7],
-    [2007, 1, 'Toyota ', 'Toyota Corolla', 691, 5.4],
-    [2007, 1, 'Peugeot ', 'Peugeot 307', 481, 3.8],
-    [2008, 1, 'Toyota ', 'Toyota Prius', 217, 2.2],
-    [2008, 1, 'Skoda ', 'Skoda Octavia', 216, 2.2],
-    [2008, 1, 'Peugeot ', 'Peugeot 308', 135, 1.4],
-    [2008, 2, 'Ford ', 'Ford Mondeo', 624, 5.9],
-    [2008, 2, 'Volkswagen ', 'Volkswagen Passat', 551, 5.2],
-    [2008, 2, 'Volkswagen ', 'Volkswagen Golf', 488, 4.6],
-    [2008, 2, 'Volvosss ', 'Volvo V70', 392, 3.7],
-    [2008, 2, 'Toyota ', 'Toyota Auris', 342, 3.2],
-    [2008, 2, 'Volkswagen ', 'Volkswagen Tiguan', 340, 3.2],
-    [2008, 2, 'Toyota ', 'Toyota Avensis', 315, 3],
-    [2008, 2, 'Nissan ', 'Nissan Qashqai', 272, 2.6],
-    [2008, 2, 'Nissan ', 'Nissan X-Trail', 271, 2.6],
-    [2008, 2, 'Mitsubishi ', 'Mitsubishi Outlander', 257, 2.4],
-    [2008, 2, 'Toyota ', 'Toyota Rav4', 250, 2.4],
-    [2008, 2, 'Ford ', 'Ford Focus', 235, 2.2],
-    [2008, 2, 'Skoda ', 'Skoda Octavia', 225, 2.1],
-    [2008, 2, 'Toyota ', 'Toyota Yaris', 222, 2.1],
-    [2008, 2, 'Honda ', 'Honda CR-V', 219, 2.1],
-    [2008, 2, 'Audi ', 'Audi A4', 200, 1.9],
-    [2008, 2, 'BMW ', 'BMW 3-serie', 184, 1.7],
-    [2008, 2, 'Toyota ', 'Toyota Prius', 165, 1.6],
-    [2008, 2, 'Peugeot ', 'Peugeot 207', 144, 1.4]
-  ];
-  const col = ['Year', 'Month', 'Make', 'modelo', 'Quantity', 'Pct'];
-  // this.excelService2.generateExcel('Reporte de luis', col , data);
-  this.excelService2.generateExcel('Reporte de luis', this.data);
-  
-}
+    //  documentaion https://artskydj.github.io/jsPDF/docs/
+    const doc = new jsPDF();
+    const img = new Image();
+    img.src = '/assets/images/logo.jpg';
+    doc.addImage(img, 'JPEG', 30, 50, 50, 50);
+    const divTable = document.getElementById('tabla22');
+    doc.setFontSize(7);
+    for (let indexy = 1; indexy < 300; indexy++) {
+      indexy = indexy + 4;
+      for (let index = 0; index < 300; index++) {
+        doc.text(index, indexy, 'x' + index + 'Y' + indexy);
+        index = index + 14;
+      }
+    }
+    doc.text('hola 1570', 15, 70);
+    doc.fromHTML(divTable, 30, 30);
+    doc.save('a4.pdf');
+  }
+  generateExcel() {
+    this.excelService2.generateExcel('Reporte de luis', this.data);
+  }
 }

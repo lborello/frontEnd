@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 import * as logoFile from './carlogo.js';
+import * as logoAdmin from './logo.js';
 import { DatePipe } from '@angular/common';
 
 @Injectable({
@@ -18,10 +19,18 @@ export class ExcelService2 {
     const workbook = new Workbook();
     const worksheet = workbook.addWorksheet('Datos ' + this.datePipe.transform(new Date(), 'yyyy_MM_dd'));
     // Add Image
-    const logo = workbook.addImage({
+    const logoCard = workbook.addImage({
       base64: logoFile.logoBase64,
       extension: 'png',
     });
+    
+    const logo = workbook.addImage({
+      base64: logoAdmin.logoBase64,
+      extension: 'png',
+    });
+
+  
+
     // titulos
     worksheet.addImage(logo, 'E1:F2');
     worksheet.addRows(['']);
@@ -86,6 +95,10 @@ export class ExcelService2 {
     });
     worksheet.columns = colDataBind;
     // Auto Filter
+    worksheet.autoFilter =  {
+      from: 'A6',
+      to: 'H6',
+    };
     let colorRow: boolean = false;
     let rowfgColor;
     data.forEach((value) => {

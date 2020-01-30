@@ -1,18 +1,60 @@
-<p>Exporting an excel file of type .xslx !!!</p>
-<p>Export as XLSX by clicking the below button</p>
-<button (click)="exportAsPDF()">PDF<i class="fa fa-file-excel-o" style="font-size:48px;color:blue"></i></button>
-<button (click)="exportAsXLSX()">excel<i class="fa fa-file-excel-o" style="font-size:48px;color:aquamarine"></i></button>
-<button (click)="generateExcel()">excel 2<i class="fa fa-file-excel-o" style="font-size:48px;color:aquamarine"></i></button>
+<div id="textboxes">
+    <input [(ngModel)]="datosLuis" name="nombre" type="text" placeholder="Nombre del link">
+    <input type="number">
+</div>
+<button class="btn btn-success" (click)="addfield()">Add New Fiels +</button>
 
-<table>
-    <tr>
-        <td>Eid</td>
-        <td>Ename</td>
-        <td>Esal</td>
-    </tr>
-    <tr *ngFor="let item of data">
-        <td>{{item.eid}}</td>
-        <td>{{item.ename}}</td>
-        <td>{{item.esal}}</td>
-    </tr>
-</table>
+<div>
+    <ol #abcd>
+        <li>Coffee</li>
+        <li type="a">Tea</li>
+        <li>Milk</li>
+    </ol>
+</div>
+<div #divinput>
+    <input [(ngModel)]="datosLuis" name="nombre1" type="text" placeholder="Nombre del link">
+</div>
+<div #tabla10 class="container" id="tabla10">
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col" *ngFor="let col of colun ; index as i">
+                    <!-- {{col}} -- {{i}} -->
+                    {{col}}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr #datos10 *ngFor="let item of data">
+                <td #colum0 name="colum0" (click)="evento($event , item )" style="width:80px;">{{item[colun[0]]}} - {{columCount}} </td>
+                <td>
+                    <input #colum1 name="colum1" style="width:100px;" disabled="true" (click)="evento($event, 6  )" [(ngModel)]="item[colun[1]]" name="nombre" type="text" placeholder="Nombre del link">
+                </td>
+                <td>
+                    <input (click)="evento($event, 6  )" [(ngModel)]="item[colun[2]]" name="nombre" type="text" placeholder="Nombre del link">
+                </td>
+                <td>
+                    <input (click)="evento($event, 6  )" [(ngModel)]="item[colun[3]]" name="nombre" type="text" placeholder="Nombre del link">
+                </td>
+                <td>
+                    <input (click)="evento($event, 6  )" [(ngModel)]="item[colun[4]]" name="nombre" type="text" placeholder="Nombre del link">
+                </td>
+                <td>
+                    <input *ngIf="columCount > 5" [(ngModel)]="item[colun[5]]" name="nombre" type="text" placeholder="5">
+                </td>
+                <td>
+                    <input *ngIf="columCount > 6" [(ngModel)]="item[colun[6]]" name="nombre" type="text" placeholder="6">
+                </td>
+                <td>
+                    <input *ngIf="columCount > 7" [(ngModel)]="item[colun[7]]" name="nombre" type="text" placeholder="7">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<button (click)="exportAsPDF()">PDF<i class="fa fa-file-excel-o" style="font-size:48px;color:blue"></i></button>
+<button (click)="exportAsXLSX()">excel<i class="fa fa-file-excel-o"
+        style="font-size:48px;color:aquamarine"></i></button>
+<button (click)="generateExcel()">excel 2<i class="fa fa-file-excel-o"
+        style="font-size:48px;color:aquamarine"></i></button>
+<button (click)="crearElemento()">Crear elemento</button>
