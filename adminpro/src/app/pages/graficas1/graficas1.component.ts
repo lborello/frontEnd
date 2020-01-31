@@ -99,5 +99,7 @@ graficos: any = {
 
   ngOnInit() {
   }
-
+  datoActualidadosDesdeComponente(e){
+    console.log (e);
+  }
 }

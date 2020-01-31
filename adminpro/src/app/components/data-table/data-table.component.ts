@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild,Renderer2 } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild,Renderer2,  EventEmitter, Output } from '@angular/core';
 import { ExcelService } from '../../services/service.index';
 import { ExcelService2 } from '../../services/excel/excel2.service';
 import * as jsPDF from 'jspdf';
@@ -12,6 +12,7 @@ import 'jspdf-autotable';
 export class DataTableComponent implements OnInit {
   @Input() getLiveData: any = [];
   @Input() data: any = [];
+  @Output() datoActualidados = new EventEmitter<any>();
   @ViewChild('abcd', {static: false}) abcd: ElementRef;
   @ViewChild('divinput', {static: false}) divinput: ElementRef;
   @ViewChild('colum0', {static: false}) colum0: ElementRef;
@@ -39,6 +40,8 @@ export class DataTableComponent implements OnInit {
   }
 
   addfield()  {
+    // this.datoActualidados.emit('Este dato viajará hacia el padre');
+    this.datoActualidados.emit(this.data);
     const p: HTMLParagraphElement = this.renderer.createElement('input');
     p.innerHTML = "add new"
     p.setAttribute( 'value', '1');
