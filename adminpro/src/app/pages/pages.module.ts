@@ -24,6 +24,8 @@ import { MedicosComponent } from './medicos/medicos.component';
 import { MedicoComponent } from './medicos/medico.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
 import { DataTableComponent } from '../components/data-table/data-table.component';
+import { DataTable2Component } from '../components/data-table2/data-table2.component';
+import {MaterialModule} from './material.module'
 
 
 @NgModule({
@@ -36,6 +38,8 @@ import { DataTableComponent } from '../components/data-table/data-table.componen
         //  Controles 
         GraficoDonaComponent,
         DataTableComponent,
+        DataTable2Component,
+        
         // Fin COntroles
         AccoutSettingsComponent,
         PromesasComponent,
@@ -59,7 +63,8 @@ import { DataTableComponent } from '../components/data-table/data-table.componen
         PAGES_ROUTES,
         FormsModule,
         ChartsModule,
-       PipesModule
+       PipesModule,
+       MaterialModule
     ]
 })
 export class PagesModule { }

@@ -15,6 +15,8 @@ import { RegisterComponent } from './login/register.component';
 import { PagesComponent } from './pages/pages.component';
 import { SharedModule } from './shared/shared.module';
 import { DatePipe } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 @NgModule({
@@ -25,12 +27,14 @@ import { DatePipe } from '@angular/common';
     PagesComponent
   ],
   imports: [
-    BrowserModule,
     APP_ROUTES,
     FormsModule,
     ReactiveFormsModule,
     ServiceModule,
-    SharedModule
+    SharedModule,
+// Material
+    BrowserModule,
+    BrowserAnimationsModule
   ],
   providers: [
     DatePipe
